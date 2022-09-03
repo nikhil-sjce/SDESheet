@@ -36,3 +36,31 @@ public:
             sort(nums.begin(),nums.end());
     }
 };
+// Method 3 :
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size(), k, l;
+        // step 1 : find the break point
+        for(k = n-2;k>=0;k--){
+            if(nums[k] < nums[k+1]){
+                break;
+            }
+        }
+        if(k < 0){
+            // if no break point then just reverse
+            reverse(nums.begin(), nums.end());
+        }else{
+            for(l=n-1;l>=0;l--){
+                // step 2 find 1st element from last greater then break point
+                if(nums[l] > nums[k]){
+                    break;
+                }
+            }
+            // swap 3 element at index l and k
+            swap(nums[l], nums[k]);
+            // step 4 reverse from index k + 1
+            reverse(nums.begin() + k + 1, nums.end());
+        }
+    }
+};
